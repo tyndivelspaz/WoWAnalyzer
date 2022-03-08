@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -379,6 +380,74 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+
+      // Covenants
+      {
+        spell: SPELLS.SCOURING_TITHE.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
+        spell: SPELLS.DECIMATING_BOLT.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        buffSpellId: SPELLS.DECIMATING_BOLT.id,
+      },
+      {
+        spell: SPELLS.SOULSHAPE.id,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 90,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: SPELLS.SOULSHAPE.id,
+      },
+      {
+        spell: SPELLS.SOUL_ROT.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.IMPENDING_CATASTROPHE_CAST.id,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 60,
+        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        damageSpellIds: [
+          SPELLS.IMPENDING_CATASTROPHE_HIT.id,
+          SPELLS.IMPENDING_CATASTROPHE_DEBUFF.id,
+        ],
       },
     ];
   }
