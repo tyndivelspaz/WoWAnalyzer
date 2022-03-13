@@ -23,7 +23,7 @@ class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
 
-  getPetDamage(id, instance = null, isGuid = true) {
+  getPetDamage(id: number, instance = null, isGuid: boolean = true) {
     // if instance = null, returns total damage from all instances, otherwise from a specific instance
     // isGuid = true, because it's more convenient to call this with getPetDamage(PETS.SOME_PET.guid)
     // because you know what you're looking for (pet IDs change, GUIDs don't)
@@ -48,11 +48,11 @@ class DemoPets extends Analyzer {
     return this.timeline.getPetsAtTimestamp(timestamp);
   }
 
-  _getPetFromTimeline(id, instance) {
-    return this.timeline.find((pet) => pet.id === id && pet.instance === instance);
+  _getPetFromTimeline(id: number, instance: any) {
+    return this.timeline.find((pet: any) => pet.id === id && pet.instance === instance);
   }
 
-  _getPetInfo(id, isGuid = false) {
+  _getPetInfo(id: number, isGuid: boolean = false) {
     let pet;
     if (isGuid) {
       pet = this.owner.playerPets.find((pet) => pet.guid === id);
@@ -69,8 +69,8 @@ class DemoPets extends Analyzer {
     return pet;
   }
 
-  _toGuid(id) {
-    return this._getPetInfo(id).guid;
+  _toGuid(id: number) {
+    return this._getPetInfo(id)?.guid;
   }
 }
 
