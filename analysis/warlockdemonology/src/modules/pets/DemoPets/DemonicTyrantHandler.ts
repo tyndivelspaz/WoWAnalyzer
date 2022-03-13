@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
 
 import { isWildImp } from '../helpers';
 import PETS from '../PETS';
@@ -14,11 +14,13 @@ class DemonicTyrantHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  _lastCast = null;
+  protected demoPets!: DemoPets;
+
+  _lastCast: number = 0;
   _hasDemonicConsumption = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(
       SPELLS.DEMONIC_CONSUMPTION_TALENT.id,
     );
@@ -32,13 +34,13 @@ class DemonicTyrantHandler extends Analyzer {
     );
   }
 
-  onDemonicTyrantCast(event) {
+  onDemonicTyrantCast(event: CastEvent) {
     // extend current pets by 15 seconds
     this._lastCast = event.timestamp;
     const affectedPets = this.demoPets.currentPets;
     test &&
       this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
-    affectedPets.forEach((pet) => {
+    affectedPets.forEach((pet: any) => {
       pet.extend();
       pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
       // if player has Demonic Consumption talent, kill all imps
@@ -56,7 +58,7 @@ class DemonicTyrantHandler extends Analyzer {
       );
   }
 
-  onDemonicPowerRemove(event) {
+  onDemonicPowerRemove(event: AnyEvent) {
     // Demonic Tyrant effect faded, update imps' expected despawn
     const actualBuffTime = event.timestamp - this._lastCast;
     this.demoPets.currentPets
