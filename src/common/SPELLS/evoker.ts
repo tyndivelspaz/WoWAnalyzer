@@ -53,6 +53,17 @@ const spells = spellIndexableList({
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
+  ESSENCE_BURST_PRESERVATION_BUFF: {
+    id: 369299,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
+  // Devastation
+  ESSENCE_BURST_DEVASTATION_BUFF: {
+    id: 359618,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
