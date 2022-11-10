@@ -2,7 +2,6 @@ import { Putro } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
@@ -10,8 +9,8 @@ const config: Config = {
   contributors: [Putro],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.0.5',
-  isPartial: false,
+  patchCompatibility: null,
+  isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -27,12 +26,14 @@ const config: Config = {
       <a href="https://www.discord.gg/trueshot" target="_blank" rel="noopener noreferrer">
         discord.gg/trueshot
       </a>
-      . The <kbd>#Marksmanship</kbd> channel has a lot of helpful people, and if you post your logs
+      . The <kbd>#marksmanship</kbd> channel has a lot of helpful people, and if you post your logs
       in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the
-      community. The best guide available currently is the guide on{' '}
-      <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-guide">Icy-veins</a>. It is
-      maintained by Azortharion, and it is constantly fact-checked by community-members, and
-      improved upon on an almost weekly basis.
+      community. The guides on{' '}
+      <a href="https://www.wowhead.com/guide/classes/hunter/marksmanship/overview-pve-dps">
+        Wowhead
+      </a>{' '}
+      and <a href="https://www.icy-veins.com/wow/marksmanship-hunter-pve-dps-guide">Icy-veins</a>{' '}
+      are both excellent resources to check out.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
