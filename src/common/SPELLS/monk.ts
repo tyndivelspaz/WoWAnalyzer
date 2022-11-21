@@ -141,7 +141,7 @@ const spells = spellIndexableList({
   ENVELOPING_BREATH_HEAL: {
     id: 325209,
     name: 'Enveloping Breath',
-    icon: 'ability_monk_chiexplosion',
+    icon: 'ability_monk_jadeserpentbreath',
   },
   SOOTHING_BREATH: {
     id: 343737,
@@ -259,14 +259,18 @@ const spells = spellIndexableList({
   FAELINE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk'
+    icon: 'ability_ardenweald_monk',
   },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
     name: 'Faeline Stomp',
     icon: 'ability_monk_essencefont',
   },
-
+  FAELINE_STOMP_RESET: {
+    id: 388203,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {

@@ -184,7 +184,7 @@ class InvokeChiJi extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(50)}
+        position={STATISTIC_ORDER.DEFAULT}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
@@ -214,8 +214,7 @@ class InvokeChiJi extends Analyzer {
           </Trans>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}
-        >
+        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}>
           <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} />
             <br />

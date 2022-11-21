@@ -1921,6 +1921,19 @@ export const CamClark: Contributor = {
   ],
 };
 
+export const Phased: Contributor = {
+  nickname: 'Phased',
+  github: 'bilalm4',
+  discord: 'Phased#1267',
+  mains: [
+    {
+      name: 'Phasedruid',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Phasedruid',
+    },
+  ],
+};
+
 export const Listefano: Contributor = {
   nickname: 'Listefano',
   github: 'listefano',
@@ -1959,4 +1972,16 @@ export const Jonfanz: Contributor = {
 export const Anty: Contributor = {
   nickname: 'Anty',
   github: 'jsucupira',
+};
+export const Squided: Contributor = {
+  nickname: 'Squided',
+  github: 'foobartles',
+  discord: 'squided#0001',
+  mains: [
+    {
+      name: 'Squided',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+  ],
 };
