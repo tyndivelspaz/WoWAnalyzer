@@ -307,6 +307,11 @@ const spells = spellIndexableList({
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
   },
+  SANCTIFIED_PRAYERS_BUFF: {
+    id: 196490,
+    name: 'Sanctified Prayers',
+    icon: 'spell_holy_pureofheart',
+  },
 
   // Talents:
   // lv90
@@ -673,6 +678,25 @@ const spells = spellIndexableList({
     id: 205386,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
+  },
+
+  INESCAPABLE_TORMENT_TALENT_DAMAGE: {
+    id: 373442,
+    name: 'Inescapable Torment',
+    icon: 'spell_shadow_chilltouch',
+  },
+
+  MIND_SEAR_TALENT_DAMAGE: {
+    id: 49821,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear',
+    insanityCost: 0,
+  },
+
+  MIND_FLAY_INSANITY_TALENT_DAMAGE: {
+    id: 391403,
+    name: 'Mind Flay: Insanity',
+    icon: 'spell_fire_twilightflamebreath',
   },
 
   // Disc
