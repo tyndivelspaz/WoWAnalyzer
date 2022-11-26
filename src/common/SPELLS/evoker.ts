@@ -74,12 +74,6 @@ const spells = spellIndexableList({
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
   },
-  // Devastation
-  ESSENCE_BURST_DEVASTATION_BUFF: {
-    id: 359618,
-    name: 'Essence Burst',
-    icon: 'ability_evoker_essenceburst',
-  },
   LIFE_GIVERS_FLAME_HEAL: {
     id: 371441,
     name: "Life Giver's Flame",
@@ -99,6 +93,12 @@ const spells = spellIndexableList({
     id: 363502,
     name: 'Dream Flight',
     icon: 'ability_evoker_dreamflight',
+  },
+  // Devastation
+  ESSENCE_BURST_DEVASTATION_BUFF: {
+    id: 359618,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
   },
   // Shared
   BLESSING_OF_THE_BRONZE: {
@@ -147,6 +147,11 @@ const spells = spellIndexableList({
     icon: 'ability_evoker_emeraldblossom',
     essenceCost: 3,
     manaCost: 12000,
+  },
+  ESSENCE_BURST_BUFF: {
+    id: 369299,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
   },
   PANACEA_HEAL: {
     id: 387763,
