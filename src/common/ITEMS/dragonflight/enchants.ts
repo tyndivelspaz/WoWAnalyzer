@@ -182,6 +182,60 @@ const enchants = enchantIndexableList({
     icon: 'inv_misc_enchantedscroll',
     effectId: 6652,
   },
+  ENCHANT_WEAPON_HIGH_INTENSITY_THERMAL_SCANNER_R1: {
+    id: 198316,
+    name: 'High Intensity Thermal Scanner',
+    icon: 'inv_10_engineering_scope_color4',
+    effectId: 6526,
+  },
+  ENCHANT_WEAPON_HIGH_INTENSITY_THERMAL_SCANNER_R2: {
+    id: 198317,
+    name: 'High Intensity Thermal Scanner',
+    icon: 'inv_10_engineering_scope_color4',
+    effectId: 6527,
+  },
+  ENCHANT_WEAPON_HIGH_INTENSITY_THERMAL_SCANNER_R3: {
+    id: 198318,
+    name: 'High Intensity Thermal Scanner',
+    icon: 'inv_10_engineering_scope_color4',
+    effectId: 6528,
+  },
+  ENCHANT_WEAPON_PROJECTILE_PROPULSION_PINION_R1: {
+    id: 198313,
+    name: 'Projectile Propulsion Pinion',
+    icon: 'inv_10_engineering_scope_color3',
+    effectId: 6523,
+  },
+  ENCHANT_WEAPON_PROJECTILE_PROPULSION_PINION_R2: {
+    id: 198314,
+    name: 'Projectile Propulsion Pinion',
+    icon: 'inv_10_engineering_scope_color3',
+    effectId: 6524,
+  },
+  ENCHANT_WEAPON_PROJECTILE_PROPULSION_PINION_R3: {
+    id: 198315,
+    name: 'Projectile Propulsion Pinion',
+    icon: 'inv_10_engineering_scope_color3',
+    effectId: 6526,
+  },
+  ENCHANT_WEAPON_GYROSCOPIC_KALEIDOSCOPE_R1: {
+    id: 198310,
+    name: 'Gyroscopic Kaleidoscope',
+    icon: 'inv_10_engineering_scope_color2',
+    effectId: 6520,
+  },
+  ENCHANT_WEAPON_GYROSCOPIC_KALEIDOSCOPE_R2: {
+    id: 198311,
+    name: 'Gyroscopic Kaleidoscope',
+    icon: 'inv_10_engineering_scope_color2',
+    effectId: 6521,
+  },
+  ENCHANT_WEAPON_GYROSCOPIC_KALEIDOSCOPE_R3: {
+    id: 198312,
+    name: 'Gyroscopic Kaleidoscope',
+    icon: 'inv_10_engineering_scope_color2',
+    effectId: 6522,
+  },
 
   // Boots
   ENCHANT_BOOTS_PLAINSRUNNERS_BREEZE_R1: {
@@ -771,6 +825,156 @@ const enchants = enchantIndexableList({
     name: 'Howling Rune',
     icon: 'inv_misc_rune_05',
     effectId: 6518,
+  },
+
+  // Weapon Enhancements - Engineering
+  COMPLETELY_SAFE_ROCKETS_R1: {
+    id: 198160,
+    name: 'Completely Safe Rockets',
+    icon: 'inv_ammo_bullet_04',
+    effectId: 6529,
+  },
+  COMPLETELY_SAFE_ROCKETS_R2: {
+    id: 198161,
+    name: 'Completely Safe Rockets',
+    icon: 'inv_ammo_bullet_04',
+    effectId: 6530,
+  },
+  COMPLETELY_SAFE_ROCKETS_R3: {
+    id: 198162,
+    name: 'Completely Safe Rockets',
+    icon: 'inv_ammo_bullet_04',
+    effectId: 6531,
+  },
+  ENDLESS_STACK_OF_NEEDLES_R1: {
+    id: 198163,
+    name: 'Endless Stack of Needles',
+    icon: 'inv_weapon_shortblade_08',
+    effectId: 6532,
+  },
+  ENDLESS_STACK_OF_NEEDLES_R2: {
+    id: 198164,
+    name: 'Endless Stack of Needles',
+    icon: 'inv_weapon_shortblade_08',
+    effectId: 6533,
+  },
+  ENDLESS_STACK_OF_NEEDLES_R3: {
+    id: 198165,
+    name: 'Endless Stack of Needles',
+    icon: 'inv_weapon_shortblade_08',
+    effectId: 6534,
+  },
+
+  // Leg Enhancements - Leatherworking
+  REINFORCED_ARMOR_KIT_R1: {
+    id: 193559,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6491,
+  },
+  REINFORCED_ARMOR_KIT_R2: {
+    id: 193563,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6492,
+  },
+  REINFORCED_ARMOR_KIT_R3: {
+    id: 193567,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6493,
+  },
+  FROSTED_ARMOR_KIT_R1: {
+    id: 193556,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6494,
+  },
+  FROSTED_ARMOR_KIT_R2: {
+    id: 193560,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6495,
+  },
+  FROSTED_ARMOR_KIT_R3: {
+    id: 193564,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6496,
+  },
+  FIERCE_ARMOR_KIT_R1: {
+    id: 193557,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6488,
+  },
+  FIERCE_ARMOR_KIT_R2: {
+    id: 193561,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6489,
+  },
+  FIERCE_ARMOR_KIT_R3: {
+    id: 193565,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6490,
+  },
+
+  // Leg Enhancements - Tailoring
+  FROZEN_SPELLTHREAD_R1: {
+    id: 194011,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6488,
+  },
+  FROZEN_SPELLTHREAD_R2: {
+    id: 194012,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6489,
+  },
+  FROZEN_SPELLTHREAD_R3: {
+    id: 194013,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6490,
+  },
+  TEMPORAL_SPELLTHREAD_R1: {
+    id: 194014,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6488,
+  },
+  TEMPORAL_SPELLTHREAD_R2: {
+    id: 194015,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6489,
+  },
+  TEMPORAL_SPELLTHREAD_R3: {
+    id: 194016,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6490,
+  },
+  VIBRANT_SPELLTHREAD_R1: {
+    id: 194008,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6488,
+  },
+  VIBRANT_SPELLTHREAD_R2: {
+    id: 194009,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6489,
+  },
+  VIBRANT_SPELLTHREAD_R3: {
+    id: 194010,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6490,
   },
 });
 
