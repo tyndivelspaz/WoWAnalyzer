@@ -3,7 +3,6 @@ import { MS_BUFFER_1000 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -31,7 +30,6 @@ const WINTERS_CHILL_PRECAST_CASTS = [
   SPELLS.FROSTBOLT,
   TALENTS.EBONBOLT_TALENT,
   TALENTS.GLACIAL_SPIKE_TALENT,
-  SPELLS.RADIANT_SPARK,
 ];
 
 const WINTERS_CHILL_PRECAST_DAMAGE = [
@@ -52,8 +50,6 @@ class WintersChill extends Analyzer {
 
   hasGlacialSpike: boolean;
   hasEbonbolt: boolean;
-  isKyrian: boolean;
-  isVenthyr: boolean;
 
   wintersChillApplied = false;
   buffRemovedTimestamp = 0;
@@ -71,8 +67,6 @@ class WintersChill extends Analyzer {
     super(options);
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
-    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.isVenthyr = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_PRECAST_DAMAGE),
@@ -132,25 +126,12 @@ class WintersChill extends Analyzer {
     if (event.timestamp - this.preCastTimestamp < MS_BUFFER_1000) {
       this.preCastFound = true;
     }
-
-    //If the player is Kyrian and used Radiant Spark as their precast, ignore the precast check
-    if (this.preCastID === SPELLS.RADIANT_SPARK.id) {
-      this.preCastIgnored = true;
-      debug && this.log('PRE CAST IGNORED');
-    }
   }
 
   onWintersChillSpender(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       return;
-    }
-
-    //If the player is Venthyr and the target has Mirrors of Torment, then we need to ignore the precast
-    //We are doing this here because it is the only events where we can get the target debuffs
-    if (enemy.hasBuff(SPELLS.MIRRORS_OF_TORMENT.id)) {
-      this.preCastIgnored = true;
-      debug && this.log('PRE CAST IGNORED');
     }
 
     this.shatteredCasts += 1;

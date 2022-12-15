@@ -487,6 +487,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 5000,
   },
+  PONTIFEX_TALENT_BUFF: {
+    id: 390989,
+    name: 'Pontifex',
+    icon: 'spell_priest_pontifex',
+  },
   DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
     id: 372787,
     name: 'Divine Word: Sanctuary',
@@ -643,6 +648,12 @@ const spells = spellIndexableList({
     id: 194249,
     name: 'Voidform',
     icon: 'spell_priest_voidform',
+  },
+
+  DARK_ASCENSION_BUFF: {
+    id: 391109,
+    name: 'Dark Ascension',
+    icon: 'ability_priest_darkarchangel',
   },
 
   DARK_THOUGHTS: {
