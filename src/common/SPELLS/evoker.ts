@@ -69,11 +69,11 @@ const spells = spellIndexableList({
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
-  ESSENCE_BURST_PRESERVATION_BUFF: {
-    id: 369299,
-    name: 'Essence Burst',
-    icon: 'ability_evoker_essenceburst',
-  },
+  // ESSENCE_BURST_PRESERVATION_BUFF: {
+  //   id: 369299,
+  //   name: 'Essence Burst',
+  //   icon: 'ability_evoker_essenceburst',
+  // },
   LIFE_GIVERS_FLAME_HEAL: {
     id: 371441,
     name: "Life Giver's Flame",

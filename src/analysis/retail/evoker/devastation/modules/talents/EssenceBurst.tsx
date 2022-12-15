@@ -1,88 +1,126 @@
+import { t } from '@lingui/macro';
+import { SPELL_COLORS } from '../../constants';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ChangeBuffStackEvent,
-  GlobalCooldownEvent,
-  RefreshBuffEvent,
-} from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Events, { EventType, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { getEssenceBurstConsumeAbility } from '../../normalizers/CastLinkNormalizer';
 
-const LAG_BUFFER_MS = 100;
+/**
+ * Following the same set-up created by trevorm4 in Preservation
+ * to keep consistency between the specs.
+ */
+
+const ESSENCE_COSTS: { [name: string]: number } = {
+  Pyre: 2,
+  Disintegrate: 3,
+};
 
 class EssenceBurstDevastation extends Analyzer {
-  // static dependencies = {
-  //   abilityTracker: AbilityTracker,
-  // };
-  // protected abilityTracker!: AbilityTracker;
-
-  lastGCDTime: number = 0;
-  lastGCDDuration: number = 0;
-
-  essenceBurstProcs: number = 0;
-  wastedEssenceBurstProcs: number = 0;
-
-  maxEssenceBurstStacks: number = 1;
+  totalConsumed: number = 0;
+  totalExpired: number = 0;
+  essenceSaved: number = 0;
+  consumptionCount: { [name: string]: number } = { Pyre: 0, Disintegrate: 0 };
 
   constructor(options: Options) {
     super(options);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_EVOKER.AZURE_ESSENCE_BURST_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT);
 
-    this.maxEssenceBurstStacks = this.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT,
-    )
-      ? 2
-      : 1;
-
-    this.addEventListener(Events.GlobalCooldown, this.globalCooldown);
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEVASTATION_BUFF),
-      this.onEssenceBurstStackChange,
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEVASTATION_BUFF),
+      this.onBuffRemove,
     );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEVASTATION_BUFF),
-      this.onBuffRefresh,
+    if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ESSENCE_ATTUNEMENT_TALENT)) {
+      this.addEventListener(
+        Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_DEVASTATION_BUFF),
+        this.onBuffRemove,
+      );
+    }
+  }
+
+  onBuffRemove(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    const consumeAbility = getEssenceBurstConsumeAbility(event);
+    if (consumeAbility) {
+      const spellName = consumeAbility.ability.name;
+      this.totalConsumed += 1;
+      this.essenceSaved += ESSENCE_COSTS[spellName];
+      this.consumptionCount[spellName] += 1;
+    } else if (event.type === EventType.RemoveBuff) {
+      this.totalExpired += 1;
+    } else {
+      this.totalExpired += (event as RemoveBuffStackEvent).stack;
+    }
+  }
+
+  renderDonutChart() {
+    const items = [
+      {
+        color: SPELL_COLORS.DISINTEGRATE,
+        label: 'Disinitegrate',
+        spallId: SPELLS.DISINTEGRATE.id,
+        value: this.consumptionCount['Disintegrate'],
+        valueTooltip: this.consumptionCount['Disinitegrate'],
+      },
+      {
+        color: SPELL_COLORS.PYRE,
+        label: 'Pyre',
+        spellId: TALENTS_EVOKER.PYRE_TALENT.id,
+        value: this.consumptionCount['Pyre'],
+        valueTooltip: this.consumptionCount['Pyre'],
+      },
+    ].filter((item) => item.value > 0);
+    return <DonutChart items={items} />;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalExpired,
+      isGreaterThan: {
+        major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to avoid wasting <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks.
+        </>,
+      )
+        .icon(TALENTS_EVOKER.ESSENCE_BURST_TALENT.icon)
+        .actual(
+          `${actual} ${t({
+            id: 'evoker.devastation.suggestions.essenceBurst.wastedStacks',
+            message: ' wasted Essence Burst stacks',
+          })}`,
+        )
+        .recommended(`${recommended} wasted stacks recommended`),
     );
-  }
-
-  globalCooldown(event: GlobalCooldownEvent) {
-    this.lastGCDTime = event.timestamp;
-    this.lastGCDDuration = event.duration;
-  }
-
-  onEssenceBurstStackChange(event: ChangeBuffStackEvent) {
-    const stackChange = event.stacksGained;
-    if (stackChange > 0) {
-      this.essenceBurstProcs += stackChange;
-    }
-
-    // if (stackChange === -1) { // buff expired without usage therefore it was wasted
-    //   this.wastedEssenceBurstProcs += 1;
-    // }
-  }
-
-  onBuffRefresh(event: RefreshBuffEvent) {
-    const timeSinceGCD = event.timestamp - this.lastGCDTime;
-    if (timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
-      return;
-    }
-    this.wastedEssenceBurstProcs += 1;
   }
 
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.ESSENCE_BURST_DEVASTATION_BUFF.id}>
-          <span>{this.essenceBurstProcs}</span>
-          <br />
-          <span>{this.wastedEssenceBurstProcs}</span>
-        </BoringSpellValueText>
+        <div className="pad">
+          <label>
+            <SpellLink id={SPELLS.ESSENCE_BURST_DEVASTATION_BUFF.id} /> consumption by spell
+          </label>
+          {this.renderDonutChart()}
+        </div>
       </Statistic>
     );
   }
