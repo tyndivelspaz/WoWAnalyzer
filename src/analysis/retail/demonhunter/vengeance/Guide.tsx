@@ -7,13 +7,17 @@ import { AlertWarning, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
-
-import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
-import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
-import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
-import MetamorphosisSection from './modules/spells/Metamorphosis/GuideSection';
-import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
+import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
+import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+
+import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
+import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
+import VoidReaverSubSection from './modules/talents/VoidReaver/GuideSection';
+import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection';
+import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
+import MajorDefensives from './modules/core/MajorDefensives';
+import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -90,6 +94,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
 
 function MitigationSection() {
   const info = useInfo();
+  const [enabled, setEnabled] = useVdhFeatureFlag('major-defensives');
   if (!info) {
     return null;
   }
@@ -101,11 +106,33 @@ function MitigationSection() {
         message: 'Defensive Cooldowns and Mitigation',
       })}
     >
-      <MetamorphosisSection />
-      <DemonSpikesSection />
-      <FieryBrandSection />
-      <VoidReaverSection />
+      <div className="flex">
+        <div className="flex-main" />
+        <div className="flex-sub">
+          <VerticallyAlignedToggle
+            id="enable-new-defensives-section-toggle"
+            enabled={enabled}
+            setEnabled={setEnabled}
+            label="View In-Flight Content"
+            tooltipContent="Only click this if you're okay with seeing under-development features. If things don't work how you expect, you can always turn this back off."
+          />
+        </div>
+      </div>
+      {enabled && <MajorDefensives />}
+      {!enabled && <OldMitigationSection />}
     </Section>
+  );
+}
+
+function OldMitigationSection() {
+  return (
+    <>
+      <HideExplanationsToggle id="hide-explanations-old-mitigation" />
+      <MetamorphosisSubSection />
+      <DemonSpikesSubSection />
+      <FieryBrandSubSection />
+      <VoidReaverSubSection />
+    </>
   );
 }
 
@@ -122,6 +149,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         the Dragonflight launch. It is currently a reasonable starting point, but may not match the
         optimal rotation yet.
       </AlertWarning>
+      <br />
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}
@@ -129,11 +157,14 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
         </Trans>
       </p>
+      <br />
+      <HideExplanationsToggle id="hide-explanations-rotation" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
       <ImmolationAuraVengeanceGuideSection />
       {modules.soulCleave.guideSubsection()}
-      {modules.spiritBomb.guideSubsection()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
+        modules.spiritBomb.guideSubsection()}
     </Section>
   );
 }
@@ -155,6 +186,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
         </Trans>
       </p>
+      <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&
         modules.felDevastation.guideBreakdown()}

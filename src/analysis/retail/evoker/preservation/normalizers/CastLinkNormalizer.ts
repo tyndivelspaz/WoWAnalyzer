@@ -31,6 +31,7 @@ export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
+const ECHO_BUFFER = 500;
 const EB_BUFFER_MS = 2000;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
@@ -82,6 +83,9 @@ const EVENT_LINKS: EventLink[] = [
         c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
       );
     },
+    additionalCondition(linkedEvent, referencedEvent) {
+      return !HasRelatedEvent(linkedEvent, FROM_HARDCAST);
+    },
   },
   /* ECHO APPLY TO ECHO REMOVAL LINKING */
   // link echo removal to echo apply
@@ -113,28 +117,32 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO,
     reverseLinkRelation: ECHO,
-    linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
     additionalCondition(linkedEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
+      return HasRelatedEvent(linkedEvent, ECHO_REMOVAL);
     },
   },
   //link TA echo removal to hot application
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
-    linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
+      return (
+        HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
+        !HasRelatedEvent(referencedEvent, ECHO)
+      );
     },
     isActive(c) {
       return (
@@ -148,55 +156,60 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO,
     reverseLinkRelation: ECHO,
-    linkingEventId: [
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
-      TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
     ],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
+      return HasRelatedEvent(linkingEvent, ECHO_REMOVAL);
     },
   },
   // link EB heal to echo remove
   {
     linkRelation: ECHO,
     reverseLinkRelation: ECHO,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.RemoveBuff],
-    backwardBufferMs: EB_BUFFER_MS,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
+      return !HasRelatedEvent(linkingEvent, ECHO_REMOVAL);
     },
   },
   // link TA echo removal to echo heal (for non-hots)
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
-    linkingEventId: [
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: [
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
-      TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
     ],
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: EventType.RemoveBuff,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    referencedEventType: EventType.Heal,
+    maximumLinks: 1,
+    forwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
+      return (
+        HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
+        !HasRelatedEvent(referencedEvent, ECHO)
+      );
     },
     isActive(c) {
       return (
@@ -209,13 +222,18 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.RemoveBuff],
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
+    referencedEventType: EventType.Heal,
     forwardBufferMs: EB_BUFFER_MS + 250,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
+      return (
+        HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
+        !HasRelatedEvent(referencedEvent, ECHO)
+      );
     },
     isActive(c) {
       return (
@@ -311,6 +329,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
     referencedEventType: EventType.Heal,
     anyTarget: true,
+    forwardBufferMs: 25,
+    backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
         (linkingEvent as AbilityEvent<any>).ability.guid !==
