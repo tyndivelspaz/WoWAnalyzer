@@ -39,6 +39,8 @@ import FontOfMagic from './modules/talents/FontOfMagic';
 import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
 
+import Guide from './Guide';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     lowHealthHealing: LowHealthHealing,
@@ -91,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     emeraldCommunion: EmeraldCommunion,
     sparkOfInsight: SparkOfInsight,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
