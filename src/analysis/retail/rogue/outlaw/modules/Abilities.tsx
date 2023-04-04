@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLADE_FLURRY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           static: standardGcd,
         },
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 1,
+        cooldown: 60,
         charges: 3,
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
       },
@@ -216,9 +216,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RIPOSTE.id,
+        spell: TALENTS.EVASION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.RIPOSTE.id,
+        buffSpellId: TALENTS.EVASION_TALENT.id,
         cooldown: 120,
         gcd: null,
       },
@@ -256,6 +256,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
         gcd: null,
+        enabled: combatant.hasTalent(TALENTS.GRAPPLING_HOOK_TALENT),
+      },
+      {
+        spell: TALENTS.SHADOWSTEP_SHARED_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,

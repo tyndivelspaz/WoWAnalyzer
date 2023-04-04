@@ -76,6 +76,7 @@ import MendingProliferation from './modules/spells/MendingProliferation';
 import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import LegacyOfWisdom from './modules/spells/LegacyOfWisdom';
 import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
 import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
@@ -83,6 +84,7 @@ import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
+import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -176,11 +178,13 @@ class CombatLogParser extends CoreCombatLogParser {
     sheilunsGift: SheilunsGift,
     shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
+    legacyOfWisdom: LegacyOfWisdom,
 
     apl: AplCheck,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
+    t30TierSet: T30TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

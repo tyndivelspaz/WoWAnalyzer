@@ -38,6 +38,8 @@ import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
 import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
+import EchoBreakdown from './modules/talents/EchoBreakdown';
+import Ouroboros from './modules/talents/Ouroboros';
 
 import Guide from './Guide';
 
@@ -70,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     echo: Echo,
+    echoBreakdown: EchoBreakdown,
     dreamBreath: DreamBreath,
     dreamFlight: DreamFlight,
     livingFlame: LivingFlame,
@@ -92,6 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fontOfMagic: FontOfMagic,
     emeraldCommunion: EmeraldCommunion,
     sparkOfInsight: SparkOfInsight,
+    ouroboros: Ouroboros,
   };
 
   static guide = Guide;

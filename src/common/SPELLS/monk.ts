@@ -296,6 +296,16 @@ const spells = spellIndexableList({
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
   },
+  CHI_COCOON_HEAL_CHIIJI: {
+    id: 406220,
+    name: 'Chi Cocoon',
+    icon: 'inv_pet_crane',
+  },
+  CHI_COCOON_HEAL_YULON: {
+    id: 406139,
+    name: 'Chi Cocoon',
+    icon: 'ability_monk_chiexplosion',
+  },
   GUST_OF_MISTS_CHIJI: {
     id: 343819,
     name: 'Gust of Mists',
@@ -351,7 +361,18 @@ const spells = spellIndexableList({
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
-
+  //Tier 30 2pc Buff
+  SOULFANG_INFUSION: {
+    id: 410007,
+    name: 'Soulfang Infusion',
+    icon: 'inv_glove_leather_raidmonkdragon_d_01',
+  },
+  //Tier 30 4pc Buff
+  SOULFANG_VITALITY: {
+    id: 410082,
+    name: 'Soulfang Vitality',
+    icon: 'nv_helm_leather_raidmonkdragon_d_01',
+  },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,

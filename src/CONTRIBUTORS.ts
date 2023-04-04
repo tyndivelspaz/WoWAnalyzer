@@ -2117,10 +2117,24 @@ export const zac: Contributor = {
 export const HerzBlutRaffy: Contributor = {
   nickname: 'Raffy',
   github: 'naotaraffy',
-  discord: 'naotaraffy',
+  discord: 'HerzBlutRaffy#1697',
 };
 
 export const bdfreeman1421: Contributor = {
   nickname: 'bdfreeman1421',
   github: 'bdfreeman1421',
+};
+export const dodse: Contributor = {
+  nickname: 'dodse',
+  github: 'dsnam',
+  discord: 'dsn#4942',
+};
+export const SyncSubaru: Contributor = {
+  nickname: 'SyncSubaru',
+  github: 'cameronstubber',
+};
+export const attluh: Contributor = {
+  nickname: 'attluh',
+  github: 'attluh',
+  discord: 'attluh#3373',
 };

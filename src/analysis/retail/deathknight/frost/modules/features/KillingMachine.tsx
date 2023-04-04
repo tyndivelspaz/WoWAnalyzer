@@ -6,9 +6,11 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -35,6 +37,9 @@ class KillingMachineEfficiency extends Analyzer {
   lastProcTime: number = 0;
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
+  currentStacks = 0;
+
+  readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +57,16 @@ class KillingMachineEfficiency extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
       this.onRefreshBuff,
     );
+    this.fatalFixation &&
+      this.addEventListener(
+        Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+        this.onApplyBuffStack,
+      );
+    this.fatalFixation &&
+      this.addEventListener(
+        Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+        this.onRemoveBuffStack,
+      );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -68,10 +83,27 @@ class KillingMachineEfficiency extends Analyzer {
 
   onRefreshBuff(event: RefreshBuffEvent) {
     const timeSinceGCD = event.timestamp - this.lastGCDTime;
-    if (timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
+    this.kmProcs += 1;
+    // 3/24/23, trying out disabling lag tolerance for km refreshes if the player has fatal fixation talented, may need more work
+    if (!this.fatalFixation && timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
+      return;
+    } else if (this.fatalFixation && this.currentStacks === 1) {
+      // 3/24/23, logs refresh km whenever you go from 2 -> 1 stacks
+      this.lastProcTime = event.timestamp;
       return;
     }
     this.refreshedKMProcs += 1;
+  }
+
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    this.kmProcs += 1;
+    this.lastProcTime = event.timestamp;
+    this.currentStacks = event.stack;
+  }
+
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this.currentStacks = event.stack;
+    this.lastProcTime = event.timestamp;
   }
 
   globalCooldown(event: GlobalCooldownEvent) {
@@ -177,11 +209,10 @@ class KillingMachineEfficiency extends Analyzer {
         <b>
           <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />
         </b>{' '}
-        is your most important proc. You want to waste as few of them as possible. If you have{' '}
-        <SpellLink id={talents.FROSTREAPER_TALENT.id} /> or{' '}
-        <SpellLink id={talents.MIGHT_OF_THE_FROZEN_WASTES_TALENT.id} /> it is even more important
-        because <SpellLink id={talents.OBLITERATE_TALENT} /> will be a significant source of damage
-        in your build.
+        is your most important proc. You want to waste as few of them as possible. If you are
+        playing 2H Frost it is even more important because{' '}
+        <SpellLink id={talents.OBLITERATE_TALENT} /> will be <b>the most important</b> source of
+        damage in your build.
       </p>
     );
 
