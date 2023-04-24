@@ -40,6 +40,7 @@ import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
 import EchoBreakdown from './modules/talents/EchoBreakdown';
 import Ouroboros from './modules/talents/Ouroboros';
+import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 
 import Guide from './Guide';
 
@@ -96,6 +97,9 @@ class CombatLogParser extends CoreCombatLogParser {
     emeraldCommunion: EmeraldCommunion,
     sparkOfInsight: SparkOfInsight,
     ouroboros: Ouroboros,
+
+    // tier
+    t30PrevokerTier: T30PrevokerSet,
   };
 
   static guide = Guide;
