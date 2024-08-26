@@ -1057,7 +1057,7 @@ export const Tiphess: Contributor = {
 };
 export const Tyndi: Contributor = {
   nickname: 'Tyndi',
-  github: 'darthelit',
+  github: 'tyndivelspaz',
   discord: 'Tyndi#4337',
   avatar: avatar('tyndi-avatar.png'),
 };

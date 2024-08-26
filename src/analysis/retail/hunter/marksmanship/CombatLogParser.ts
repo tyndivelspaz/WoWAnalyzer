@@ -53,8 +53,8 @@ import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from './modules/talents/Deathblow';
-import T29MMTier2P from './modules/items/T29MMTier2P';
-import T29MMTier4P from './modules/items/T29MMTier4P';
+
+import BlackArrow from '../shared/talents/hero/darkranger/BlackArrow';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -125,8 +125,11 @@ class CombatLogParser extends CoreCombatLogParser {
     barrage: Barrage,
 
     // items
-    t292p: T29MMTier2P,
-    t294p: T29MMTier4P,
+    // t292p: T29MMTier2P,
+    // t294p: T29MMTier4P,
+
+    // Hero Talents
+    blackarrow: BlackArrow,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

@@ -230,6 +230,21 @@ const spells = {
     name: 'Deathblow',
     icon: 'ability_hunter_runningshot',
   },
+  BLACK_ARROW: {
+    id: 430703,
+    name: 'Black Arrow',
+    icon: 'inv_ability_darkrangerhunter_blackarrow',
+  },
+  WITHERING_FIRE: {
+    id: 461490,
+    name: 'Withering Fire',
+    icon: 'spell_shadow_painspike',
+  },
+  SERPENT_STING_MM: {
+    id: 271788,
+    name: 'Serpent Sting',
+    icon: 'spell_hunter_exoticmunitions_poisoned',
+  },
   //endregion
 
   //region Survival
