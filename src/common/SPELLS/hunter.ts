@@ -324,17 +324,6 @@ const spells = {
     name: 'Mongoose Bite',
     icon: 'ability_hunter_mongoosebite',
   },
-  STEEL_TRAP_DAMAGE: {
-    //the event is a damage event, but it merely applies the debuff
-    id: 162480,
-    name: 'Steel Trap',
-    icon: 'inv_pet_pettrap02',
-  },
-  STEEL_TRAP_DEBUFF: {
-    id: 162487,
-    name: 'Steel Trap',
-    icon: 'inv_pet_pettrap02',
-  },
   TIP_OF_THE_SPEAR_CAST: {
     id: 260286,
     name: 'Tip of the Spear',

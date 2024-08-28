@@ -5,7 +5,7 @@ import {
   BornToBeWild,
   CancelledCasts,
   Channeling,
-  DeathChakrams,
+  // DeathChakrams,
   DeathTracker,
   FocusDetails,
   FocusTracker,
@@ -13,7 +13,6 @@ import {
   NaturalMending,
   RejuvenatingWind,
   SpellFocusCost,
-  SteelTrap,
   Trailblazer,
   TranquilizingShot,
   WailingArrow,
@@ -111,7 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
-    deathChakrams: DeathChakrams,
+    // deathChakrams: DeathChakrams,
     tranquilizingShot: TranquilizingShot,
     trailblazer: Trailblazer,
     naturalMending: NaturalMending,
@@ -120,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     explosiveShot: ExplosiveShot,
     masterMarksman: MasterMarksman,
     wailingArrow: WailingArrow,
-    steelTrap: SteelTrap,
     serpentSting: SerpentSting,
     barrage: Barrage,
 

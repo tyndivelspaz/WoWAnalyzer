@@ -48,32 +48,35 @@ class SerpentSting extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT),
       this.onDamage,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT),
       this.onApplyDebuff,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT),
       this.onRemoveDebuff,
     );
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      Events.refreshdebuff
+        .by(SELECTED_PLAYER)
+        .spell(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT),
       this.onRefreshDebuff,
     );
   }
 
   get uptimePercentage() {
     return (
-      this.enemies.getBuffUptime(TALENTS_HUNTER.SERPENT_STING_TALENT.id) / this.owner.fightDuration
+      this.enemies.getBuffUptime(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT.id) /
+      this.owner.fightDuration
     );
   }
 
@@ -161,12 +164,13 @@ class SerpentSting extends Analyzer {
     when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It is not recommended to refresh <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} />{' '}
-          earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of
-          the duration remaining.
+          It is not recommended to refresh{' '}
+          <SpellLink spell={TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT} /> earlier than when
+          there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the duration
+          remaining.
         </>,
       )
-        .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
+        .icon(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT.icon)
         .actual(
           defineMessage({
             id: 'hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic',
@@ -179,11 +183,12 @@ class SerpentSting extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should make sure to keep up <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} />{' '}
-          by using it within the pandemic windows to maximize it's damage potential.
+          You should make sure to keep up{' '}
+          <SpellLink spell={TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT} /> by using it within
+          the pandemic windows to maximize it's damage potential.
         </>,
       )
-        .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
+        .icon(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT.icon)
         .actual(
           defineMessage({
             id: 'hunter.marksmanship.suggestions.serpentSting.uptime',
@@ -214,7 +219,7 @@ class SerpentSting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={TALENTS_HUNTER.SERPENT_STING_TALENT}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
