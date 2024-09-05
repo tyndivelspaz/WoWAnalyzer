@@ -240,6 +240,11 @@ const spells = {
     name: 'Withering Fire',
     icon: 'spell_shadow_painspike',
   },
+  WITHERING_FIRE_BUFF: {
+    id: 461762,
+    name: 'Withering Fire',
+    icon: 'spell_shadow_painspike',
+  },
   SERPENT_STING_MM: {
     id: 271788,
     name: 'Serpent Sting',

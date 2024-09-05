@@ -83,6 +83,11 @@ export const LNL_COST_MULTIPLIER = 0;
 export const SERPENT_STING_MM_BASE_DURATION = 18000;
 //Serpent Sting pandemics at 30%
 export const SERPENT_STING_MM_PANDEMIC = 0.3;
+/** Black Arrow */
+//Black Arrow has a 10% chance to proc per time it deals damage
+export const BA_PROC_CHANCE = 0.1;
+//When Black Arrow procs Aimed Shot's cast time is halved
+export const BA_AIMED_SHOT_CAST_SPEED_UP = 0.5;
 //endregion
 
 //region Resources
